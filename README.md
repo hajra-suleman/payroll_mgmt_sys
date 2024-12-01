@@ -1,2 +1,2 @@
-# payroll_mgmt_sys
-Payroll management Sytem
+# Payroll Management System
+Payroll management Sytem assignment
