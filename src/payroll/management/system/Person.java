@@ -1,5 +1,7 @@
 package payroll.management.system;
 
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +13,7 @@ package payroll.management.system;
  *
 **/
     
-public class Person{
+public class Person implements Serializable {
     protected String name;
     protected int id;
     protected int age;

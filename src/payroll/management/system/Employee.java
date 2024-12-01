@@ -2,7 +2,7 @@ package payroll.management.system;
 import payroll.management.system.Department;
 import payroll.management.system.Person;
 import payroll.management.system.Position;
-
+import java.io.Serializable;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +13,7 @@ import payroll.management.system.Position;
      *
      * @author Hajra
      */
-    public class Employee extends Person {
+    public class Employee extends Person implements Serializable{
       private Department department;
       private Position position;
 

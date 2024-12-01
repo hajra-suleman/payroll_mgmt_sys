@@ -5,7 +5,12 @@
  */
 package payroll.management.system;
 import java.util.Scanner;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.IOException;
 /**
  *11
  * @author Hajra
@@ -19,7 +24,8 @@ public class PayrollManagementSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args){
-
+        ReadFromFile();
+        
         while(true){
             EmployeeManagementMenu();    
         }
@@ -106,21 +112,59 @@ public class PayrollManagementSystem {
         Position position = new Position(positionId, positionName);
         
         Employee e = new Employee(department, position, id, name, age, address, email, phonenumber);
-
+        WriteToFile(e);
         return e;
     }  
 
+    public static void WriteToFile(Employee e){
+        try{
+            FileOutputStream fos = new FileOutputStream("person.ser", true);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(e);
+            oos.close();
+            fos.close();
+        }
+        catch(IOException I){
+            System.out.println(I);
+        }
+    }
+    
+    public static void ReadFromFile(){
+        int i = 0;
+        Employee emp = null;
+        try{
+            while(i < 20){
+                FileInputStream fis = new FileInputStream("person.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                try {
+                    emp = (Employee) ois.readObject();
+                } catch(ClassNotFoundException e2) {
+                    System.out.println(e2);
+                }
+                ois.close();
+                fis.close();
+                employees[employeecount] = emp;
+                i++;
+            }
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+    }
+    
     public static Salary CreateSalary(int employeeId){
         Scanner myObj = new Scanner(System.in);
         
         System.out.println("Enter basic pay:");
         double basicPay = myObj.nextDouble();
+
         System.out.println("Enter allowances:");
         double allowances = myObj.nextDouble();
+
         System.out.println("Enter deductions:");
         double deductions = myObj.nextDouble();
         
-           return new Salary(employeeId, basicPay, allowances, deductions);     
+        return new Salary(employeeId, basicPay, allowances, deductions);     
     }
     
     public static void ViewEmployee (){
